@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  # Servidor de Base de Datos H2 Standalone (modo TCP)
+  h2-db:
+    image: oscarfonts/h2:latest
+    container_name: h2-db
+    ports:
+      - "1521:1521" # Puerto de conexión de base de datos H2 TCP
+      - "81:81"     # Puerto para la Consola Web de H2
+    environment:
+      - H2_OPTIONS=-ifNotExists
+    volumes:
+      - h2_data:/opt/h2-data
+    restart: unless-stopped
+
+  # Microservicio claims-service
+  claims-service:
+    build:
+      context: ./claims-service
+      dockerfile: Dockerfile
+    container_name: claims-service
+    ports:
+      - "${PORT}:${PORT}"
+    environment:
+      - DB_USERNAME=${DB_USERNAME}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_R2DBC_URL=${DOCKER_DB_R2DBC_URL}
+      - DB_JDBC_URL=${DOCKER_DB_JDBC_URL}
+      - PORT=${PORT}
+    depends_on:
+      - h2-db
+    restart: unless-stopped
+
+volumes:
+  h2_data:

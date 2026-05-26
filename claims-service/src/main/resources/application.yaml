@@ -1,3 +1,28 @@
 spring:
   application:
     name: claims-service
+
+  # Configuración de R2DBC (Persistencia Reactiva)
+  r2dbc:
+    url: ${DB_R2DBC_URL:r2dbc:h2:mem:///claimsdb;DB_CLOSE_DELAY=-1}
+    username: ${DB_USERNAME:sa}
+    password: ${DB_PASSWORD:}
+
+  # Configuración de DataSource (Persistencia JDBC para Flyway)
+  datasource:
+    url: ${DB_JDBC_URL:jdbc:h2:mem:claimsdb;DB_CLOSE_DELAY=-1}
+    username: ${DB_USERNAME:sa}
+    password: ${DB_PASSWORD:}
+    driver-class-name: org.h2.Driver
+
+  # Configuración de Migraciones con Flyway
+  flyway:
+    enabled: true
+    url: ${DB_JDBC_URL:jdbc:h2:mem:claimsdb;DB_CLOSE_DELAY=-1}
+    user: ${DB_USERNAME:sa}
+    password: ${DB_PASSWORD:}
+    baseline-on-migrate: true
+
+server:
+  port: ${PORT:8080}
+
