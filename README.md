@@ -145,7 +145,7 @@ curl -X POST http://localhost:8080/auth/login \
 }
 ```
 
-> **Nota:** En todas las peticiones posteriores a los endpoints `/claims/**`, se debe añadir la cabecera `Authorization: Bearer <TOKEN_JWT>`.
+> **Nota:** En todas las peticiones posteriores a los endpoints `/claims/**`, se debe añadir la cabecera `Authorization: Bearer <TOKEN_JWT>`. Se puede usar el token de 1 año pre-generado.
 
 ---
 
@@ -154,7 +154,7 @@ curl -X POST http://localhost:8080/auth/login \
 ```bash
 curl -X POST http://localhost:8080/claims \
   -H "Content-Type: application/json" \
-  -H "Authorization: Bearer <TOKEN_JWT>" \
+  -H "Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6W3siYXV0aG9yaXR5IjoiUk9MRV9BTkFMWVNJUyJ9XSwic3ViIjoiYW5hbHlzdCIsImlhdCI6MTc3OTg2Mjc1NSwiZXhwIjoxODExMzk4NzU1fQ.nl-NsTJeiBQ9IGNzDC2JbdHt4iCIoMVrB7RdUTkoAP_yU0hDXnNHwSCjDub7kdK6anPOZiwyIEUPuL7AdfDknw" \
   -d '{
     "customerId": "a1b2c3d4-e5f6-7a8b-9c0d-1e2f3a4b5c6d",
     "policyId": "11111111-2222-3333-4444-555555555555",
@@ -167,12 +167,12 @@ curl -X POST http://localhost:8080/claims \
 ---
 
 ### 3. Obtener un Siniestro por ID (GET)
-Reemplaza `<CLAIM_ID>` por el ID UUID del siniestro devuelto en la creación.
+Reemplaza `<CLAIM_ID>` por el ID UUID del siniestro devuelto en la creación (o usa el pre-cargado `99999999-9999-9999-9999-999999999999`).
 
 **Request:**
 ```bash
-curl -X GET http://localhost:8080/claims/<CLAIM_ID> \
-  -H "Authorization: Bearer <TOKEN_JWT>"
+curl -X GET http://localhost:8080/claims/99999999-9999-9999-9999-999999999999 \
+  -H "Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6W3siYXV0aG9yaXR5IjoiUk9MRV9BTkFMWVNJUyJ9XSwic3ViIjoiYW5hbHlzdCIsImlhdCI6MTc3OTg2Mjc1NSwiZXhwIjoxODExMzk4NzU1fQ.nl-NsTJeiBQ9IGNzDC2JbdHt4iCIoMVrB7RdUTkoAP_yU0hDXnNHwSCjDub7kdK6anPOZiwyIEUPuL7AdfDknw"
 ```
 
 ---
@@ -181,19 +181,19 @@ curl -X GET http://localhost:8080/claims/<CLAIM_ID> \
 **Request:**
 ```bash
 curl -X GET http://localhost:8080/claims \
-  -H "Authorization: Bearer <TOKEN_JWT>"
+  -H "Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6W3siYXV0aG9yaXR5IjoiUk9MRV9BTkFMWVNJUyJ9XSwic3ViIjoiYW5hbHlzdCIsImlhdCI6MTc3OTg2Mjc1NSwiZXhwIjoxODExMzk4NzU1fQ.nl-NsTJeiBQ9IGNzDC2JbdHt4iCIoMVrB7RdUTkoAP_yU0hDXnNHwSCjDub7kdK6anPOZiwyIEUPuL7AdfDknw"
 ```
 
 ---
 
 ### 5. Actualizar un Siniestro (PUT)
-Reemplaza `<CLAIM_ID>` por el ID del siniestro que deseas actualizar.
+Reemplaza `<CLAIM_ID>` por el ID del siniestro que deseas actualizar (p.ej. `99999999-9999-9999-9999-999999999999`).
 
 **Request:**
 ```bash
-curl -X PUT http://localhost:8080/claims/<CLAIM_ID> \
+curl -X PUT http://localhost:8080/claims/99999999-9999-9999-9999-999999999999 \
   -H "Content-Type: application/json" \
-  -H "Authorization: Bearer <TOKEN_JWT>" \
+  -H "Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6W3siYXV0aG9yaXR5IjoiUk9MRV9BTkFMWVNJUyJ9XSwic3ViIjoiYW5hbHlzdCIsImlhdCI6MTc3OTg2Mjc1NSwiZXhwIjoxODExMzk4NzU1fQ.nl-NsTJeiBQ9IGNzDC2JbdHt4iCIoMVrB7RdUTkoAP_yU0hDXnNHwSCjDub7kdK6anPOZiwyIEUPuL7AdfDknw" \
   -d '{
     "customerId": "a1b2c3d4-e5f6-7a8b-9c0d-1e2f3a4b5c6d",
     "policyId": "11111111-2222-3333-4444-555555555555",
@@ -206,10 +206,10 @@ curl -X PUT http://localhost:8080/claims/<CLAIM_ID> \
 ---
 
 ### 6. Eliminar un Siniestro (DELETE)
-Reemplaza `<CLAIM_ID>` por el ID del siniestro que deseas eliminar.
+Reemplaza `<CLAIM_ID>` por el ID del siniestro que deseas eliminar (p.ej. `99999999-9999-9999-9999-999999999999`).
 
 **Request:**
 ```bash
-curl -X DELETE http://localhost:8080/claims/<CLAIM_ID> \
-  -H "Authorization: Bearer <TOKEN_JWT>"
+curl -X DELETE http://localhost:8080/claims/99999999-9999-9999-9999-999999999999 \
+  -H "Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6W3siYXV0aG9yaXR5IjoiUk9MRV9BTkFMWVNJUyJ9XSwic3ViIjoiYW5hbHlzdCIsImlhdCI6MTc3OTg2Mjc1NSwiZXhwIjoxODExMzk4NzU1fQ.nl-NsTJeiBQ9IGNzDC2JbdHt4iCIoMVrB7RdUTkoAP_yU0hDXnNHwSCjDub7kdK6anPOZiwyIEUPuL7AdfDknw"
 ```
