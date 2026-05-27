@@ -1,13 +1,13 @@
 # Pacífico Seguros - Claims Service (Gestión de Siniestros)
 
-Este repositorio contiene un microservicio reactivo y no bloqueante para la gestión de siniestros de seguros (Claims), construido bajo los principios de la **Arquitectura Hexagonal (Ports & Adapters)** y utilizando programación funcional de extremo a extremo.
+Este repositorio contiene un servicio reactivo y no bloqueante para la gestión de siniestros de seguros (Claims), construido bajo los principios de la **Arquitectura Hexagonal (Ports & Adapters)** y utilizando programación funcional de extremo a extremo.
 
 ---
 
 ## 🛠️ Stack Tecnológico
 
 - **Java 21**: Uso de `records`, `sealed classes` y APIs funcionales.
-- **Spring Boot 3.5.14**: Base del microservicio.
+- **Spring Boot 3.5.14**: Base de la aplicación.
 - **Spring WebFlux**: Reactividad no bloqueante (Routers y Handlers funcionales).
 - **Spring Data R2DBC**: Persistencia reactiva a base de datos.
 - **H2 Database**: Base de datos SQL en memoria con driver R2DBC.
@@ -41,7 +41,7 @@ Este repositorio contiene un microservicio reactivo y no bloqueante para la gest
    docker compose up --build -d
    ```
 
-3. El microservicio estará disponible en: `http://localhost:8080`
+3. El servicio estará disponible en: `http://localhost:8080`
 
 4. Para ver los logs del contenedor en tiempo real:
    ```bash
@@ -58,7 +58,7 @@ Este repositorio contiene un microservicio reactivo y no bloqueante para la gest
 ## 🧪 Ejecución de Pruebas y Reporte de Cobertura
 
 ### Ejecutar los Tests
-Para correr las pruebas unitarias y de integración del microservicio, ejecuta:
+Para correr las pruebas unitarias y de integración de la aplicación, ejecuta:
 ```bash
 # Windows
 .\mvnw.cmd clean test
