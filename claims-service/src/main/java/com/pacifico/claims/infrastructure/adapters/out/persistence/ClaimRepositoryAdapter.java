@@ -37,4 +37,9 @@ public class ClaimRepositoryAdapter implements ClaimRepositoryPort {
         return repository.findAll()
             .map(mapper::toDomain);
     }
+
+    @Override
+    public Mono<Void> deleteById(UUID id) {
+        return repository.deleteById(id);
+    }
 }

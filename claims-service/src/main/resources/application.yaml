@@ -32,3 +32,10 @@ security:
     secret: ${JWT_SECRET}
     expiration: ${JWT_EXPIRATION}
 
+    
+logging:
+  level:
+    org:
+      springframework:
+        r2dbc: DEBUG
+

@@ -54,6 +54,28 @@ public class ClaimRouter {
                     @ApiResponse(responseCode = "200", description = "List of claims", content = @Content(array = @ArraySchema(schema = @Schema(implementation = ClaimResponse.class)))),
                     @ApiResponse(responseCode = "401", description = "Unauthorized"),
                     @ApiResponse(responseCode = "403", description = "Forbidden")
+                })),
+        @RouterOperation(path = "/claims/{id}", produces = {MediaType.APPLICATION_JSON_VALUE},
+            method = RequestMethod.PUT, beanClass = ClaimHandler.class, beanMethod = "updateClaim",
+            operation = @Operation(operationId = "updateClaim", summary = "Update an existing claim", tags = { "Claims" },
+                parameters = { @Parameter(name = "id", in = ParameterIn.PATH, description = "The ID of the claim (UUID)", required = true, schema = @Schema(type = "string", format = "uuid")) },
+                requestBody = @RequestBody(content = @Content(schema = @Schema(implementation = ClaimRequest.class))),
+                responses = {
+                    @ApiResponse(responseCode = "200", description = "Claim updated successfully", content = @Content(schema = @Schema(implementation = ClaimResponse.class))),
+                    @ApiResponse(responseCode = "400", description = "Invalid input or business rule violation"),
+                    @ApiResponse(responseCode = "404", description = "Claim not found"),
+                    @ApiResponse(responseCode = "401", description = "Unauthorized"),
+                    @ApiResponse(responseCode = "403", description = "Forbidden")
+                })),
+        @RouterOperation(path = "/claims/{id}", produces = {MediaType.APPLICATION_JSON_VALUE},
+            method = RequestMethod.DELETE, beanClass = ClaimHandler.class, beanMethod = "deleteClaim",
+            operation = @Operation(operationId = "deleteClaim", summary = "Delete a claim by its ID", tags = { "Claims" },
+                parameters = { @Parameter(name = "id", in = ParameterIn.PATH, description = "The ID of the claim (UUID)", required = true, schema = @Schema(type = "string", format = "uuid")) },
+                responses = {
+                    @ApiResponse(responseCode = "204", description = "Claim deleted successfully"),
+                    @ApiResponse(responseCode = "404", description = "Claim not found"),
+                    @ApiResponse(responseCode = "401", description = "Unauthorized"),
+                    @ApiResponse(responseCode = "403", description = "Forbidden")
                 }))
     })
     public RouterFunction<ServerResponse> claimRoutes(ClaimHandler handler) {
@@ -62,6 +84,8 @@ public class ClaimRouter {
                 .POST("", accept(MediaType.APPLICATION_JSON), handler::createClaim)
                 .GET("/{id}", handler::getClaimById)
                 .GET("", handler::getAllClaims)
+                .PUT("/{id}", accept(MediaType.APPLICATION_JSON), handler::updateClaim)
+                .DELETE("/{id}", handler::deleteClaim)
             )
             .build();
     }

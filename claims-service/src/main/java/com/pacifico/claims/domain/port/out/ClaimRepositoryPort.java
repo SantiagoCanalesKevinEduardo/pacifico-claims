@@ -10,4 +10,5 @@ public interface ClaimRepositoryPort {
     Mono<Claim> save(Claim claim);
     Mono<Claim> findById(UUID id);
     Flux<Claim> findAll();
+    Mono<Void> deleteById(UUID id);
 }

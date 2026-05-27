@@ -11,6 +11,7 @@ import com.pacifico.claims.infrastructure.adapters.out.persistence.repository.Us
 import com.pacifico.claims.infrastructure.adapters.out.persistence.repository.UserRoleR2dbcRepository;
 import com.pacifico.claims.infrastructure.security.JwtService;
 import jakarta.validation.Validator;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.ReactiveUserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -26,6 +27,7 @@ import lombok.RequiredArgsConstructor;
 
 @Component
 @RequiredArgsConstructor
+@Slf4j
 public class AuthHandler {
 
     private final UserR2dbcRepository userRepository;
@@ -53,8 +55,11 @@ public class AuthHandler {
                                 return Mono.error(new ResponseStatusException(HttpStatus.UNAUTHORIZED,
                                         "Invalid username or password"));
                             })
-                            .onErrorResume(e -> Mono.error(new ResponseStatusException(HttpStatus.UNAUTHORIZED,
-                                    "Invalid username or password")));
+                            .onErrorResume(e -> {
+                                log.error("Login failed for user: {}", req.username(), e);
+                                return Mono.error(new ResponseStatusException(HttpStatus.UNAUTHORIZED,
+                                        "Invalid username or password"));
+                            });
                 });
     }
 

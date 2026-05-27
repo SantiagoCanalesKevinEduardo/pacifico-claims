@@ -2,6 +2,8 @@ package com.pacifico.claims.infrastructure.adapters.in.web.handler;
 
 import com.pacifico.claims.domain.port.in.CreateClaimUseCase;
 import com.pacifico.claims.domain.port.in.FindClaimUseCase;
+import com.pacifico.claims.domain.port.in.UpdateClaimUseCase;
+import com.pacifico.claims.domain.port.in.DeleteClaimUseCase;
 import com.pacifico.claims.infrastructure.adapters.in.web.dto.ClaimRequest;
 import com.pacifico.claims.infrastructure.adapters.in.web.mapper.ClaimWebMapper;
 import jakarta.validation.Validator;
@@ -22,6 +24,8 @@ public class ClaimHandler {
 
     private final CreateClaimUseCase createClaimUseCase;
     private final FindClaimUseCase findClaimUseCase;
+    private final UpdateClaimUseCase updateClaimUseCase;
+    private final DeleteClaimUseCase deleteClaimUseCase;
     private final ClaimWebMapper mapper;
     private final Validator validator;
 
@@ -55,5 +59,28 @@ public class ClaimHandler {
             .map(mapper::toResponse)
             .collectList()
             .flatMap(res -> ServerResponse.ok().bodyValue(res));
+    }
+
+    public Mono<ServerResponse> updateClaim(ServerRequest request) {
+        UUID id = UUID.fromString(request.pathVariable("id"));
+        return request.bodyToMono(ClaimRequest.class)
+            .flatMap(req -> {
+                var violations = validator.validate(req);
+                if (!violations.isEmpty()) {
+                    String errorMsg = violations.stream()
+                        .map(v -> v.getPropertyPath() + ": " + v.getMessage())
+                        .collect(Collectors.joining(", "));
+                    return Mono.error(new ResponseStatusException(HttpStatus.BAD_REQUEST, errorMsg));
+                }
+                return updateClaimUseCase.update(id, mapper.toDomain(req))
+                    .map(mapper::toResponse)
+                    .flatMap(res -> ServerResponse.ok().bodyValue(res));
+            });
+    }
+
+    public Mono<ServerResponse> deleteClaim(ServerRequest request) {
+        UUID id = UUID.fromString(request.pathVariable("id"));
+        return deleteClaimUseCase.delete(id)
+            .then(ServerResponse.noContent().build());
     }
 }
