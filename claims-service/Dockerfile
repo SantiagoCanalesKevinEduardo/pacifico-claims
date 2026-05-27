@@ -2,13 +2,17 @@
 FROM maven:3.9.6-eclipse-temurin-21-alpine AS build
 WORKDIR /app
 
-# Copiar el pom.xml y descargar dependencias para aprovechar la caché de Docker
+# Copiar el pom.xml
 COPY pom.xml .
-RUN mvn dependency:go-offline -B
 
-# Copiar el código fuente y compilar
+# Descargar las dependencias usando 'dependency:resolve' para aprovechar el cache.
+RUN --mount=type=cache,target=/root/.m2 mvn dependency:resolve -B
+
+# Copiar el código fuente
 COPY src ./src
-RUN mvn package -DskipTests -B
+
+# Compilar la aplicación reutilizando el caché de dependencias de Maven
+RUN --mount=type=cache,target=/root/.m2 mvn package -DskipTests -B
 
 # Stage 2: Runtime image
 FROM eclipse-temurin:21-jre-alpine
@@ -20,5 +24,5 @@ COPY --from=build /app/target/*.jar app.jar
 # Exponer el puerto por defecto de la aplicación
 EXPOSE 8080
 
-# Comando de inicio
+# Comando de inicio directo
 ENTRYPOINT ["java", "-jar", "app.jar"]

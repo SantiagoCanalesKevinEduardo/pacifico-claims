@@ -1,0 +1,34 @@
+# Ignorar artefactos de compilación local
+target/
+*.jar
+*.war
+
+# Ignorar archivos del sistema de base de datos local
+data/
+*.db
+
+# Ignorar configuraciones de entornos de desarrollo (IDE)
+.idea/
+.vscode/
+*.iml
+*.ipr
+*.iws
+
+# Ignorar sistema de control de versiones
+.git/
+.gitignore
+.gitattributes
+
+# Ignorar logs y archivos temporales
+*.log
+tmp/
+temp/
+
+# Ignorar configuraciones locales y credenciales
+.env
+*.properties
+
+# Archivos innecesarios de Maven Wrapper (ya que Dockerfile usa Maven instalado)
+.mvn/
+mvnw
+mvnw.cmd

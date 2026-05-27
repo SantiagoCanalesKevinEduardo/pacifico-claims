@@ -4,23 +4,23 @@ spring:
 
   # Configuración de R2DBC (Persistencia Reactiva)
   r2dbc:
-    url: ${DB_R2DBC_URL:r2dbc:h2:mem:///claimsdb;DB_CLOSE_DELAY=-1}
-    username: ${DB_USERNAME:sa}
-    password: ${DB_PASSWORD:}
+    url: ${DB_R2DBC_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
 
   # Configuración de DataSource (Persistencia JDBC para Flyway)
   datasource:
-    url: ${DB_JDBC_URL:jdbc:h2:mem:claimsdb;DB_CLOSE_DELAY=-1}
-    username: ${DB_USERNAME:sa}
-    password: ${DB_PASSWORD:}
+    url: ${DB_JDBC_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
     driver-class-name: org.h2.Driver
 
   # Configuración de Migraciones con Flyway
   flyway:
     enabled: true
-    url: ${DB_JDBC_URL:jdbc:h2:mem:claimsdb;DB_CLOSE_DELAY=-1}
-    user: ${DB_USERNAME:sa}
-    password: ${DB_PASSWORD:}
+    url: ${DB_JDBC_URL}
+    user: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
     baseline-on-migrate: true
 
 server:
@@ -29,6 +29,6 @@ server:
 # Configuración de Seguridad y JWT
 security:
   jwt:
-    secret: ${JWT_SECRET:9a76a98d89a76d8b9a7f69da0a8f89c678a6789e9f90919293949596979899a0}
-    expiration: ${JWT_EXPIRATION:86400000}
+    secret: ${JWT_SECRET}
+    expiration: ${JWT_EXPIRATION}
 

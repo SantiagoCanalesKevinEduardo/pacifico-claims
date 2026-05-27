@@ -1,0 +1,26 @@
+name: pacifico-claim
+version: '3.8'
+
+networks:
+  pacifico-network:
+    driver: bridge
+
+services:
+  # Microservicio claims-service
+  claims-service:
+    build:
+      context: ./claims-service
+      dockerfile: Dockerfile
+    container_name: claims-service
+    ports:
+      - "${PORT}:${PORT}"
+    env_file:
+      - .env
+    volumes:
+      - h2_data:/app/data
+    networks:
+      - pacifico-network
+    restart: unless-stopped
+
+volumes:
+  h2_data:
