@@ -94,13 +94,23 @@ Los endpoints están completamente documentados y se pueden probar interactivame
 
 El sistema ya viene precargado con datos de prueba configurados a través de Flyway en las migraciones de base de datos para facilitar el testeo inmediato:
 
-### Usuarios (para Login / Autenticación)
+### Usuarios y Permisos (para Login / Autenticación)
+Existen 2 usuarios de prueba pre-cargados. Sin embargo, por reglas de seguridad, **solo el usuario con rol de analista (`analyst`) tiene permisos para interactuar con los endpoints de siniestros (`/claims/**`)**:
 * **Analyst (Rol: ROLE_ANALYSIS)**:
   - **Username**: `analyst`
   - **Password**: `analyst123`
+  - *Acceso*: Autorizado para todos los endpoints de Claims.
 * **User (Rol: ROLE_USER)**:
   - **Username**: `user`
   - **Password**: `user123`
+  - *Acceso*: No autorizado (retornará error HTTP `403 Forbidden`).
+
+### Token JWT de Prueba Pre-generado (Validez de 1 Año)
+Para facilitar el testeo inmediato de los endpoints protegidos (tanto en Swagger UI como vía cURL) sin necesidad de realizar previamente la petición de login, se ha generado el siguiente token con **vigencia de 1 año** que ya incluye el rol de analista (`ROLE_ANALYSIS`):
+
+```text
+eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6W3siYXV0aG9yaXR5IjoiUk9MRV9BTkFMWVNJUyJ9XSwic3ViIjoiYW5hbHlzdCIsImlhdCI6MTc3OTg2Mjc1NSwiZXhwIjoxODExMzk4NzU1fQ.nl-NsTJeiBQ9IGNzDC2JbdHt4iCIoMVrB7RdUTkoAP_yU0hDXnNHwSCjDub7kdK6anPOZiwyIEUPuL7AdfDknw
+```
 
 ### Clientes y Pólizas (para registrar Siniestros)
 Para poder registrar un siniestro (Claim) exitosamente, debes utilizar un cliente y una póliza vigentes y vinculados entre sí. Usa los siguientes identificadores pre-cargados:
