@@ -1,3 +1,5 @@
 claims-service/.env
 .vscode/*
 .idea/*
+data/
+claims-service/data/
