@@ -8,6 +8,7 @@ spring:
     url: ${DB_R2DBC_URL}
     username: ${DB_USERNAME}
     password: ${DB_PASSWORD}
+    initialization-mode: always
 
   # Configuración de DataSource (Persistencia JDBC para Flyway)
   datasource:
@@ -39,4 +40,3 @@ logging:
     org:
       springframework:
         r2dbc: DEBUG
-
