@@ -1,4 +1,5 @@
-claims-service/.env
+# Solo por esta vez, se comenta .env para subir el archivo de configuración para fines de prueba
+# claims-service/.env
 .vscode/*
 .idea/*
 data/

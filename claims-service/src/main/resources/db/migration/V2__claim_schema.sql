@@ -53,3 +53,6 @@ INSERT INTO customers (id, name, email, phone, created_by) VALUES
 INSERT INTO policies (id, customer_id, policy_number, start_date, end_date, coverage_amount, created_by) VALUES 
 ('11111111-2222-3333-4444-555555555555', 'a1b2c3d4-e5f6-7a8b-9c0d-1e2f3a4b5c6d', 'POL-100200', '2026-01-01 00:00:00', '2027-01-01 00:00:00', 50000.00, 'SYSTEM'),
 ('66666666-7777-8888-9999-000000000000', 'f6e5d4c3-b2a1-0f9e-8d7c-6b5a4f3e2d1c', 'POL-300400', '2025-06-01 00:00:00', '2026-06-01 00:00:00', 100000.00, 'SYSTEM');
+
+INSERT INTO claims (id, customer_id, policy_id, claim_type, description, amount, claim_status, created_by) VALUES
+('99999999-9999-9999-9999-999999999999', 'a1b2c3d4-e5f6-7a8b-9c0d-1e2f3a4b5c6d', '11111111-2222-3333-4444-555555555555', 'HEALTH', 'Consulta médica general de prueba', 150.00, 'PENDING', 'SYSTEM');

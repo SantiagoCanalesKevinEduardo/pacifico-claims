@@ -15,7 +15,11 @@ Este repositorio contiene un microservicio reactivo y no bloqueante para la gest
 - **Lombok & MapStruct**: Generación de código repetitivo y mapeos de datos desacoplados.
 - **JUnit 5, Mockito & StepVerifier**: Pruebas unitarias e integración reactivas.
 - **JaCoCo**: Generación de reportes de cobertura de código.
-- **Docker & Docker Compose**: Contenerización y despliegue local de la solución.
+- **Flyway**: Control de versiones y migraciones automatizadas para la base de datos SQL.
+- **Springdoc OpenAPI / Swagger**: Autogeneración de documentación de API y entorno interactivo de pruebas en la web.
+- **Maven**: Gestión de dependencias y automatización de la compilación y pruebas del ciclo de vida de desarrollo.
+- **Spring Validation (Jakarta Validation)**: Validación robusta y declarativa de campos de entrada en los DTOs de petición.
+- **Docker & Docker Compose**: Contenerización y despliegue local de la solución de forma aislada.
 
 ---
 
@@ -73,11 +77,47 @@ Puedes abrir este archivo en cualquier navegador para ver los detalles visuales 
 
 ---
 
+## 📖 Documentación interactiva con Swagger UI
+
+Los endpoints están completamente documentados y se pueden probar interactivamente a través de Swagger UI.
+
+1. Inicia la aplicación y accede a:
+   [http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html) (o la ruta correspondiente en tu navegador).
+2. Para probar los endpoints protegidos (`/claims/**`):
+   - Haz una petición al endpoint `/auth/login` (con las credenciales indicadas abajo) para obtener el token JWT.
+   - En Swagger UI, haz clic en el botón **Authorize** en la esquina superior derecha.
+   - Pega tu token con el formato `Bearer <TU_TOKEN_JWT>` y haz clic en **Authorize**.
+
+---
+
+## 🔑 Datos de Prueba Pre-registrados (Seed Data)
+
+El sistema ya viene precargado con datos de prueba configurados a través de Flyway en las migraciones de base de datos para facilitar el testeo inmediato:
+
+### Usuarios (para Login / Autenticación)
+* **Analyst (Rol: ROLE_ANALYSIS)**:
+  - **Username**: `analyst`
+  - **Password**: `analyst123`
+* **User (Rol: ROLE_USER)**:
+  - **Username**: `user`
+  - **Password**: `user123`
+
+### Clientes y Pólizas (para registrar Siniestros)
+Para poder registrar un siniestro (Claim) exitosamente, debes utilizar un cliente y una póliza vigentes y vinculados entre sí. Usa los siguientes identificadores pre-cargados:
+* **Customer ID (Cliente: Juan Perez)**: `a1b2c3d4-e5f6-7a8b-9c0d-1e2f3a4b5c6d`
+* **Policy ID (Póliza asociada: POL-100200)**: `11111111-2222-3333-4444-555555555555` (Póliza de salud activa)
+* **Customer ID (Cliente: Maria Rodriguez)**: `f6e5d4c3-b2a1-0f9e-8d7c-6b5a4f3e2d1c`
+* **Policy ID (Póliza asociada: POL-300400)**: `66666666-7777-8888-9999-000000000000` (Póliza activa)
+
+### Siniestro de Prueba Pre-cargado
+* **Claim ID**: `99999999-9999-9999-9999-999999999999` (Registrado para el cliente Juan Perez en la póliza POL-100200)
+
+---
+
 ## 📡 Ejemplos de Consumo de los Endpoints (cURL)
 
 ### 1. Autenticación (Obtener Token JWT)
-El sistema requiere autenticación. Debes obtener un token JWT primero.
-El usuario de pruebas configurado en las migraciones de BD es:
+El sistema requiere autenticación. Debes obtener un token JWT primero utilizando el usuario de pruebas configurado en las migraciones de BD:
 * **Username**: `analyst`
 * **Password**: `analyst123`
 
