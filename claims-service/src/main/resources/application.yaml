@@ -26,3 +26,9 @@ spring:
 server:
   port: ${PORT:8080}
 
+# Configuración de Seguridad y JWT
+security:
+  jwt:
+    secret: ${JWT_SECRET:9a76a98d89a76d8b9a7f69da0a8f89c678a6789e9f90919293949596979899a0}
+    expiration: ${JWT_EXPIRATION:86400000}
+
