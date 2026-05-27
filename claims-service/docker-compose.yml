@@ -9,7 +9,7 @@ services:
   # Microservicio claims-service
   claims-service:
     build:
-      context: ./claims-service
+      context: .
       dockerfile: Dockerfile
     container_name: claims-service
     ports:
@@ -17,10 +17,7 @@ services:
     env_file:
       - .env
     volumes:
-      - h2_data:/app/data
+      - ./data:/app/data
     networks:
       - pacifico-network
     restart: unless-stopped
-
-volumes:
-  h2_data:
