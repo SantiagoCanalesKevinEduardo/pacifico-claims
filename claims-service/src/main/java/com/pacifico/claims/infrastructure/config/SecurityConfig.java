@@ -37,7 +37,7 @@ public class SecurityConfig {
             .formLogin(ServerHttpSecurity.FormLoginSpec::disable)
             .httpBasic(ServerHttpSecurity.HttpBasicSpec::disable)
             .authorizeExchange(exchanges -> exchanges
-                .pathMatchers("/auth/**", "/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html", "/webjars/**").permitAll()
+                .pathMatchers("/auth/**", "/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html", "/webjars/**", "/h2-console/**").permitAll()
                 .pathMatchers("/claims/**").hasRole("ANALYSIS")
                 .anyExchange().authenticated()
             )
